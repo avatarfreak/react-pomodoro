@@ -6,7 +6,7 @@ export class Timer extends Component {
     let { intialize, display, status, startTimer, active } = this.props;
     return (
       <div className="time-box">
-        <div id="timer-label">{status}</div>
+        <div id="timer-label">{(status) ? 'Break': 'Session'}</div>
         <div id="time-left">
           <Time time={display} />
         </div>
