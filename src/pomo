@@ -128,7 +128,9 @@ class App extends React.Component {
           active={this.state.active}
           handleReset={this.handleReset}
           handlePlayPause={this.handlePlayPause}
-        />  handleSetTimers = (inc, type) => {
+        /> 
+   
+   handleSetTimers = (inc, type) => {
     if (inc && this.state[type] === 60) return;
     if (!inc && this.state[type] === 1) return;
     this.setState({ [type]: this.state[type] + (inc ? 1 : -1) });
@@ -161,3 +163,63 @@ class App extends React.Component {
 }
 
 export default App;
+
+
+////AVatarfreak
+
+ startTimer(e) {
+    //start mode active === true
+    if (!this.state.active) {
+      this.counter = setInterval(this.countDown, 1000);
+    } //end of if
+    //pause mode acitve == false
+    if (this.state.active) {
+      clearInterval(this.counter);
+      this.setState({
+        active: false
+      });
+    }
+  }
+  //countdown
+  countDown() {
+    this.setState(prevState => ({
+      time: prevState.time - 1,
+      active: true
+    }));
+    if (this.state.time == 0) {
+      this.audio.play();
+      console.log("Break Session Started");
+      clearInterval(this.counter);
+      this.setState({
+        time: this.state.breakTime,
+        status: "break"
+      });
+
+      this.counter = setInterval(() => {
+        this.setState(prevState => ({
+          time: prevState.time - 1
+        }));
+        if (this.state.time === 0) {
+          this.audio.play();
+          clearInterval(this.counter);
+          console.log("Session Started");
+          this.setState({
+            time: this.state.sessionTime,
+            status: "session"
+          });
+          this.counter = setInterval(() => {
+            this.setState(prevState => ({ time: prevState.time - 1 }));
+            if (this.state.time === 0) {
+              this.audio.play();
+              clearInterval(this.counter);
+              this.setState({
+                time: this.state.breakTime,
+                active: false,
+                status: "break"
+              });
+            }
+          }, 1000);
+        }
+      }, 1000);
+    }
+  }
