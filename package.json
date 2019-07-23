@@ -1,7 +1,7 @@
 {
-  "name": "Pomodoro-Clock",
+  "name": "react-pomodoro",
   "version": "0.1.0",
-  "homepage": "https://avatarfreak.github.io/pomodoro",
+  "homepage": "https://avatarfreak.github.io/react-pomodoro",
   "private": true,
   "dependencies": {
     "gh-pages": "^2.0.1",
