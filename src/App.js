@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./App.css";
-import n2d from "./n2d.png";
 import Footer from "./components/Footer";
 import Timer from "./components/Timer";
 import Break from "./components/Break";
@@ -13,8 +12,8 @@ class App extends Component {
       sessionTime: 25,
       breakTime: 5,
       time: 25 * 60,
-      active: false,
-      status: "session"
+      active: false, //toggle key between start(true) or pause(false)
+      status: false // toggle between session(true) or Break(false)
     };
 
     this.initialize = this.initialize.bind(this);
@@ -26,83 +25,99 @@ class App extends Component {
   //Reset btn
   initialize() {
     clearInterval(this.counter);
+    this.audio.pause();
+    this.audio.currentTime = 0;
     this.setState({
       sessionTime: 25,
       breakTime: 5,
       time: 25 * 60,
       active: false,
-      status: "session"
+      status: false
     });
   }
 
   startTimer(e) {
-    //start mode active === true
+    //Start mode active is true
     if (!this.state.active) {
       this.counter = setInterval(this.countDown, 1000);
-    } //end of if
-    //pause mode acitve == false
+    }
+
+    //Pause mode acitve is false
     if (this.state.active) {
       clearInterval(this.counter);
+      this.audio.pause();
       this.setState({
         active: false
       });
     }
   }
-  //countdown
+
+  // Timer main operation
+  //switching between Session and Break
   countDown() {
-    this.setState(prevState => ({
-      time: prevState.time - 1,
+    //start decrementing time duration
+    //active true: change the label of btn from start to pause
+    this.setState({
+      time: this.state.time - 1,
       active: true
-    }));
-  }
-  componentDidUpdate(prevProps) {
-    if (this.state.time === -1 && this.state.status === "session") {
-      this.setState({ time: this.state.breakTime * 60, status: "break" });
+    });
+
+    //keep track of session and break
+    if (this.state.time < 0) {
+      clearInterval(this.counter);
       this.audio.play();
-    }
-    if (this.state.time === -1 && this.state.status === "break") {
-      this.setState({
-        time: this.state.sessionTime * 60,
-        status: "session"
-      });
-      this.audio.play();
+      this.audio.currentTime = 0;
+      let newState;
+      //if countdown time is zero. switch time to Break Length
+      if (!this.state.status) {
+        newState = {
+          time: this.state.breakTime * 60,
+          active: false,
+          status: true
+        };
+      } else {
+        //if countdown time is not zero. keep time as session length
+        newState = {
+          time: this.state.sessionTime * 60,
+          status: false,
+          active: false
+        };
+      }
+      this.setState(newState);
+      this.startTimer();
     }
   }
 
   increment(e) {
     let { breakTime, sessionTime } = this.state;
-    if (e.target.id === "break-increment") {
-      this.setState({
-        breakTime: breakTime < 59 ? breakTime + 60 : breakTime * 60
-      });
+    if (e.target.id === "break-increment" && breakTime !== 60) {
+      this.setState({ breakTime: breakTime + 1 });
     }
-
-    if (e.target.id === "session-increment") {
+    if (e.target.id === "session-increment" && sessionTime !== 60) {
       this.setState({
-        sessionTime: sessionTime < 59 ? sessionTime + 1 : sessionTime,
-        time: sessionTime * 60
+        sessionTime: sessionTime + 1,
+        time: sessionTime * 60 + 60
       });
     }
   }
 
   decrement(e) {
     let { breakTime, sessionTime } = this.state;
-    if (e.target.id === "break-decrement") {
-      this.setState({
-        breakTime: breakTime > 1 ? breakTime - 1 : breakTime
-      });
+    if (e.target.id === "break-decrement" && breakTime !== 1) {
+      this.setState({ breakTime: breakTime - 1 });
     }
-
-    if (e.target.id === "session-decrement") {
+    if (e.target.id === "session-decrement" && sessionTime !== 1) {
       this.setState({
-        sessionTime: sessionTime > 1 ? sessionTime - 1 : sessionTime,
-        time: sessionTime * 60
+        sessionTime: sessionTime - 1,
+        time: sessionTime * 60 - 60
       });
     }
   }
+
   render() {
     return (
       <div className="App">
+        <h1>Pomodoro Clock</h1>
         <Timer
           status={this.state.status}
           display={this.state.time}
@@ -123,7 +138,7 @@ class App extends Component {
 
         <audio
           id="beep"
-          src="https://s3-us-west-1.amazonaws.com/benjaminadk/Data+synth+beep+high+and+sweet.mp3"
+          src="red-alert.mp3"
           ref={ref => (this.audio = ref)}
         ></audio>
 
