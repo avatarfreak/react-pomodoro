@@ -6,14 +6,14 @@ export class Break extends Component {
     let { display, increment, decrement } = this.props;
     return (
       <div className="break-length-box">
-        <div id="break-label">Break Length</div>
         <button id="break-increment" onClick={increment}>
           +
         </button>
-        <div id="break-length">{display} </div>
+        <div id="break-length">{display}</div>
         <button id="break-decrement" onClick={decrement}>
           -
         </button>
+        <div id="break-label">Break Length</div>
       </div>
     );
   }

@@ -5,7 +5,6 @@ function Session(props) {
   let { display, increment, decrement } = props;
   return (
     <div className="session-length-box">
-      <div id="session-label">session Length</div>
       <button id="session-increment" onClick={increment}>
         +
       </button>
@@ -13,6 +12,7 @@ function Session(props) {
       <button id="session-decrement" onClick={decrement}>
         -
       </button>
+      <div id="session-label">Session Length</div>
     </div>
   );
 }
