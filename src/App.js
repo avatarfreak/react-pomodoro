@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
+import "./styles/main.css";
 import Footer from "./components/Footer";
 import Timer from "./components/Timer";
 import Break from "./components/Break";
@@ -68,6 +69,7 @@ class App extends Component {
       this.audio.play();
       this.audio.currentTime = 0;
       let newState;
+
       //if countdown time is zero. switch time to Break Length
       if (!this.state.status) {
         newState = {
@@ -77,6 +79,7 @@ class App extends Component {
         };
       } else {
         //if countdown time is not zero. keep time as session length
+
         newState = {
           time: this.state.sessionTime * 60,
           status: false,
@@ -93,6 +96,7 @@ class App extends Component {
     if (e.target.id === "break-increment" && breakTime !== 60) {
       this.setState({ breakTime: breakTime + 1 });
     }
+
     if (e.target.id === "session-increment" && sessionTime !== 60) {
       this.setState({
         sessionTime: sessionTime + 1,
@@ -106,6 +110,7 @@ class App extends Component {
     if (e.target.id === "break-decrement" && breakTime !== 1) {
       this.setState({ breakTime: breakTime - 1 });
     }
+
     if (e.target.id === "session-decrement" && sessionTime !== 1) {
       this.setState({
         sessionTime: sessionTime - 1,
@@ -117,32 +122,44 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>Pomodoro Clock</h1>
-        <Timer
-          status={this.state.status}
-          display={this.state.time}
-          initialize={this.initialize}
-          startTimer={this.startTimer}
-          active={this.state.active}
-        />
-        <Break
-          display={this.state.breakTime}
-          increment={this.increment}
-          decrement={this.decrement}
-        />
-        <Session
-          display={this.state.sessionTime}
-          increment={this.increment}
-          decrement={this.decrement}
-        />
+        <h1 className="App-header">Pomodoro Clock</h1>
+        <div className="pgt-timer">
+          <Timer
+            status={this.state.status}
+            display={this.state.time}
+            initialize={this.initialize}
+            startTimer={this.startTimer}
+            active={this.state.active}
+            breakTime={this.state.breakTime}
+            sessionTime={this.state.sessionTime}
+          />
+        </div>
+        <div className="pgt-control-btn">
+          <div className="pgt-breaker">
+            <Break
+              display={this.state.breakTime}
+              increment={this.increment}
+              decrement={this.decrement}
+            />
+          </div>
+
+          <div className="pgt-session">
+            <Session
+              display={this.state.sessionTime}
+              increment={this.increment}
+              decrement={this.decrement}
+            />
+          </div>
+        </div>
 
         <audio
           id="beep"
           src="red-alert.mp3"
           ref={ref => (this.audio = ref)}
         ></audio>
-
-        <Footer />
+        <div className="pgt-footer">
+          <Footer />
+        </div>
       </div>
     );
   }
