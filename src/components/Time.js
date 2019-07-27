@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-//import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 
 export class Time extends Component {
   constructor(props) {
@@ -13,17 +13,13 @@ export class Time extends Component {
     let { sessionTime, breakTime, timeRemaining, status } = this.props;
     let { initialOffset } = this.state;
     let circum;
+
     if (!status && timeRemaining > -1) {
-      console.log(sessionTime);
       sessionTime = sessionTime * 60;
       circum = (initialOffset / sessionTime) * timeRemaining;
-      console.log(`WorkTime: ${sessionTime}`);
-      console.log(`circum: ${circum}`);
-      console.log(`timeRemaining: ${timeRemaining}`);
     } else {
       breakTime = breakTime * 60;
       circum = (initialOffset / breakTime) * timeRemaining;
-      console.log(`BreaTimek: ${breakTime}`);
     }
 
     document
@@ -54,4 +50,11 @@ export class Time extends Component {
     );
   }
 }
+Time.prototypes = {
+  sessionTime: PropTypes.number.isRequired,
+  breakTime: PropTypes.number.isRequired,
+  timeRemaining: PropTypes.number.isRequired,
+  status: PropTypes.bool.isRequired,
+  initialOffset: PropTypes.number.isRequired
+};
 export default Time;

@@ -26,8 +26,6 @@ a:focus {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.75);
-          box-shadow: 0 2px 2px rgba(0, 0, 0, 0.75);
 }
 
 @media (min-width: 768px) {
@@ -70,8 +68,8 @@ a:focus {
 }
 
 .time-box #pie {
-  width: 220px;
-  height: 220px;
+  width: 240px;
+  height: 240px;
   display: block;
   position: relative;
   border-radius: 50%;
@@ -141,10 +139,10 @@ a:focus {
 .time-box .btn-group #reset,
 .time-box .btn-group #start_stop {
   padding: 5px;
-  margin: 5px;
+  margin: 5px 26px;
   -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.75);
           box-shadow: 0 2px 2px rgba(0, 0, 0, 0.75);
-  border-radius: 5px;
+  border-radius: 15px;
   width: 100px;
   border: none;
   color: #ffffff;
@@ -213,7 +211,7 @@ a:focus {
 .session-length-box #break-label,
 .session-length-box #session-label {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
-  font-size: 18px;
+  font-size: 15px;
   color: #ffffff;
   font-variant: small-caps;
   letter-spacing: 1px;
@@ -242,7 +240,7 @@ a:focus {
   border-radius: 5px;
   text-shadow: 0 2px 2px rgba(0, 0, 0, 0.75);
   color: #ffffff;
-  font-size: 2em;
+  font-size: 20px;
   padding: 5px;
   font-variant: small-caps;
 }
@@ -256,8 +254,8 @@ a:focus {
 .session-length-box #session-increment,
 .session-length-box #session-decrement {
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   background: linear-gradient(25deg, #ea2d2d, burlywood);
   border: none;
   outline: none;
@@ -267,6 +265,7 @@ a:focus {
   color: #ffffff;
   font-size: 2em;
   text-align: center;
+  font-weight: bolder;
 }
 
 .break-length-box #break-increment:hover,
@@ -291,6 +290,20 @@ a:focus {
   .session-length-box #session-decrement {
     width: 100px;
     height: 100px;
+  }
+}
+
+@media (min-height: 667px) {
+  .break-length-box #break-increment,
+  .break-length-box #break-decrement,
+  .break-length-box #session-increment,
+  .break-length-box #session-decrement,
+  .session-length-box #break-increment,
+  .session-length-box #break-decrement,
+  .session-length-box #session-increment,
+  .session-length-box #session-decrement {
+    width: 50px;
+    height: 50px;
   }
 }
 
@@ -322,5 +335,37 @@ a {
   }
 }
 
+@media (min-height: 667px) {
+  .pgt-control-btn {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+  }
+}
+
+/*----------------------------Pgt-Timer---------------------------------*/
+.pgt-timer {
+  margin: 2px;
+}
+
+@media (min-height: 667px) {
+  .pgt-timer {
+    margin: 37px 26px;
+    border-radius: 64px 15px;
+    border: 5px solid burlywood;
+  }
+}
+
 /*----------------------------footer--------------------*/
+.pgt-footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+
+.pgt-footer .footer {
+  padding: 5px;
+}
 /*# sourceMappingURL=main.css.map */

@@ -17,6 +17,13 @@ $tablet: 768px;
     }
 }
 
+$phone :667px;
+@mixin phone {
+    @media (min-height: #{$phone}) {
+        @content;
+    }
+}
+
 $text: #ffffff;
 .time-box {
     display: flex;
@@ -24,7 +31,6 @@ $text: #ffffff;
     justify-content: center;
     position: relative;
     flex-direction: column;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.75);
     @include tablet {
         height: 100vh;
     }
@@ -53,8 +59,8 @@ $text: #ffffff;
         }
     }
     #pie {
-        width: 220px;
-        height: 220px;
+        width: 240px;
+        height: 240px;
         display: block;
         position: relative;
         border-radius: 50%;
@@ -108,9 +114,9 @@ $text: #ffffff;
         #reset,
         #start_stop {
             padding: 5px;
-            margin: 5px;
+            margin: 5px 26px;
             box-shadow: 0 2px 2px rgba(0, 0, 0, 0.75);
-            border-radius: 5px;
+            border-radius: 15px;
             width: 100px;
             border: none;
             color: $text;
@@ -158,7 +164,7 @@ $text: #ffffff;
     #break-label,
     #session-label {
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
-        font-size: 18px;
+        font-size: 15px;
         color: $text;
         font-variant: small-caps;
         letter-spacing: 1px;
@@ -177,7 +183,7 @@ $text: #ffffff;
         border-radius: 5px;
         text-shadow: 0 2px 2px rgba(0, 0, 0, 0.75);
         color: $text;
-        font-size: 2em;
+        font-size: 20px;
         padding: 5px;
         font-variant: small-caps;
     }
@@ -186,8 +192,8 @@ $text: #ffffff;
     #session-increment,
     #session-decrement {
         border-radius: 50%;
-        width: 50px;
-        height: 50px;
+        width: 45px;
+        height: 45px;
         background: linear-gradient(25deg, #ea2d2d, burlywood);
         border: none;
         outline: none;
@@ -196,12 +202,17 @@ $text: #ffffff;
         color: $text;
         font-size: 2em;
         text-align: center;
+        font-weight: bolder;
         &:hover {
             background: #ff7300;
         }
         @include tablet {
             width: 100px;
             height: 100px;
+        }
+        @include phone {
+            width: 50px;
+            height: 50px;
         }
     }
 }
@@ -225,7 +236,32 @@ a {
         width: 100%;
         justify-content: space-between;
     }
+    @include phone {
+        display: flex;
+        justify-content: space-around;
+    }
+}
+
+
+/*----------------------------Pgt-Timer---------------------------------*/
+
+.pgt-timer {
+    margin: 2px;
+    @include phone {
+        margin: 37px 26px;
+        border-radius: 64px 15px;
+        border: 5px solid burlywood;
+    }
 }
 
 
 /*----------------------------footer--------------------*/
+
+.pgt-footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    .footer {
+        padding: 5px;
+    }
+}

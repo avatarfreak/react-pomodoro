@@ -38,6 +38,7 @@
 - React as Front end framework.
 - sass
 - javascript
+- svg
 
 Clone this repo:
 

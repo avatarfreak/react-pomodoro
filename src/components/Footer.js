@@ -10,7 +10,6 @@ export class Footer extends Component {
       letterSpacing: "2px",
       backgroundColor: "#333",
       fontSize: "13px",
-      height:"20px",
     };
     return (
       <div className="footer" style={footer}>
