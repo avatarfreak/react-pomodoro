@@ -9,7 +9,7 @@ export class Footer extends Component {
       fontFamily: "cursive",
       letterSpacing: "2px",
       backgroundColor: "#333",
-      fontSize: "13px",
+      fontSize: "13px"
     };
     return (
       <div className="footer" style={footer}>

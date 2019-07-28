@@ -1,81 +1,113 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    outline: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background: linear-gradient(25deg, orange, #4b00ff91);
 }
 
 a:active,
 a:focus {
-    outline-style: none;
+  outline-style: none;
 }
 
+$phone: 667px;
+@mixin phone {
+  @media (min-height: #{$phone}) {
+    @content;
+  }
+}
 $tablet: 768px;
 @mixin tablet {
-    @media (min-width: #{$tablet}) {
-        @content;
-    }
+  @media (min-width: #{$tablet}) {
+    @content;
+  }
 }
 
-$phone :667px;
-@mixin phone {
-    @media (min-height: #{$phone}) {
-        @content;
-    }
+@mixin respond-to($breakpoint) {
+  @media only screen and (min-width: $breakpoint + px) {
+    @content;
+  }
 }
 
 $text: #ffffff;
-.time-box {
+$link: #ffeb3b;
+
+a {
+  text-decoration: none;
+  color: $link;
+  cursor: pointer;
+}
+
+/*----------------------------Pgt-Timer---------------------------------*/
+
+.pgt-timer {
+  margin: 2px;
+  //media quries phone
+  @include phone {
+    margin: 37px 26px;
+    border-radius: 64px 15px;
+    border: 5px solid burlywood;
+  }
+  @include tablet {
+    background: #333333db;
+  }
+  .time-box {
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     flex-direction: column;
+
     @include tablet {
-        height: 100vh;
+      height: 100vh;
     }
+
     #timer-label {
-        text-align: center;
+      text-align: center;
+      color: $text;
+      position: absolute;
+      letter-spacing: 1px;
+      font-weight: bold;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+
+      @include tablet {
+        top: 7%;
+        font-size: 22px;
+        letter-spacing: 2px;
+      }
+      h3 {
+        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.75);
+        font-size: 19px;
         color: $text;
-        position: absolute;
-        letter-spacing: 1px;
-        font-weight: bold;
-        top: 20%;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 9999;
         @include tablet {
-            top: 10%;
-            font-size: 22px;
-            letter-spacing: 2px;
+          font-size: 31px;
         }
-        h3 {
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.75);
-            font-size: 19px;
-            color: $text;
-            @include tablet {
-                font-size: 31px;
-            }
-        }
+      }
     }
     #pie {
-        width: 240px;
-        height: 240px;
-        display: block;
-        position: relative;
-        border-radius: 50%;
-        //background-color: rgb(27, 27, 27);
-        border: 6px solid;
-        border-color: blueviolet burlywood cadetblue cyan;
-        box-shadow: 0 2px 2px rgba(0, 0, 0, 0.75);
-        margin: 10px;
-        @include tablet {
-            width: 280px;
-            height: 280px;
-            top: -5%;
-        }
-    }
-    .block {
+      width: 240px;
+      height: 240px;
+      display: block;
+      position: relative;
+      border-radius: 50%;
+      border: 6px solid;
+      border-color: blueviolet burlywood cadetblue cyan;
+      box-shadow: 0 2px 2px rgba(0, 0, 0, 0.75);
+      margin: 10px;
+      //Media queries Tablet
+      @include tablet {
+        width: 280px;
+        height: 280px;
+        top: -10%;
+      }
+
+      /*---------------block ---------------*/
+      .block {
         position: absolute;
         border-radius: 50%;
         background: linear-gradient(45deg, #94801f, #de6017);
@@ -84,184 +116,193 @@ $text: #ffffff;
         transform: translate(-50%, -50%);
         width: 220px;
         height: 220px;
+
         svg {
-            width: 220px;
-            height: 220px;
-            transform: rotateZ(-90deg);
-            #circle_animation {
-                stroke-dasharray: 679;
-                stroke-linecap: butt;
-                stroke-width: 4px;
-                stroke: #4ffd4f;
-                transition: stroke-dashoffset 1s linear;
-                fill: none
-            }
+          /*----------------svg---------------*/
+          width: 220px;
+          height: 220px;
+          transform: rotateZ(-90deg);
+
+          #circle_animation {
+            /*------------circle-animation------------*/
+            stroke-dasharray: 679;
+            stroke-linecap: butt;
+            stroke-width: 4px;
+            stroke: #4ffd4f;
+            transition: stroke-dashoffset 1s linear;
+            fill: none;
+          }
         }
+
+        #time-left {
+          /*-------------time-left-----------*/
+          font-size: 3em;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          color: #f4f4f4;
+          text-shadow: 0 2px 5px rgba(0, 0, 0, 0.75);
+        }
+      }
     }
-    #time-left {
-        font-size: 3em;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: #f4f4f4;
-        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.75);
-    }
+
     .btn-group {
-        color: white;
-        display: flex;
-        padding-bottom: 5px;
-        #reset,
-        #start_stop {
-            padding: 5px;
-            margin: 5px 26px;
-            box-shadow: 0 2px 2px rgba(0, 0, 0, 0.75);
-            border-radius: 15px;
-            width: 100px;
-            border: none;
-            color: $text;
-            font-weight: bold;
-            font-size: 16px;
-            background: #009688;
-            cursor: pointer;
-            &:hover {
-                background: #009666;
-            }
-            span {
-                font-size: 18px;
-                @include tablet {
-                    font-size: 40px;
-                    padding: 9px;
-                    color: white;
-                }
-            }
-            @include tablet {
-                z-index: 9999;
-                margin: 10px;
-                border-radius: 15px;
-                width: 130px;
-            }
+      /*-------------btn-grp----------*/
+      color: white;
+      display: flex;
+      padding-bottom: 5px;
+
+      #reset,
+      #start_stop {
+        /*-----------reset start -stop----------*/
+        padding: 5px;
+        margin: 5px 26px;
+        box-shadow: 0 2px 2px rgba(0, 0, 0, 0.75);
+        border-radius: 15px;
+        width: 100px;
+        border: none;
+        color: $text;
+        font-weight: bold;
+        font-size: 16px;
+        background: #009688;
+        cursor: pointer;
+
+        &:hover {
+          /*-------------btn-hover------------------*/
+          background: #009666;
         }
+
+        span {
+          /*---------------btn unicode--------------*/
+          font-size: 18px;
+          @include tablet {
+            font-size: 40px;
+            padding: 9px;
+            color: white;
+          }
+        }
+        @include tablet {
+          z-index: 9999;
+          margin: 10px;
+          border-radius: 15px;
+          width: 130px;
+        }
+      }
     }
+  }
 }
 
-.degree {
-    /*90 + ( 360 * .1 )*/
-    background-image: linear-gradient(90deg, transparent 50%, white 50%), linear-gradient(90deg, white 50%, transparent 50%);
+.pgt-control-btn {
+  /*---------------------pgt-control-btn---------------*/
+  display: flex;
+  justify-content: space-around;
+
+  @include phone {
+    display: flex;
+  }
+
+  @include tablet {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    justify-content: space-between;
+  }
 }
 
 .break-length-box,
 .session-length-box {
-    display: grid;
-    grid-template-rows: repeat(4, 1fr);
-    color: $text;
-    font-weight: bold;
-    place-items: center;
-    padding: 5px;
-    @include tablet {
-        margin: 35px;
-    }
-    #break-label,
-    #session-label {
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
-        font-size: 15px;
-        color: $text;
-        font-variant: small-caps;
-        letter-spacing: 1px;
-        @include tablet {
-            background: rgb(43, 41, 49);
-            margin: 10px;
-            padding: 15px;
-            color: white;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
-        }
-    }
-    #break-length,
-    #session-length {
-        border-radius: 5px;
-        text-shadow: 0 2px 2px rgba(0, 0, 0, 0.75);
-        color: $text;
-        font-size: 20px;
-        padding: 5px;
-        font-variant: small-caps;
-    }
-    #break-increment,
-    #break-decrement,
-    #session-increment,
-    #session-decrement {
-        border-radius: 50%;
-        width: 45px;
-        height: 45px;
-        background: linear-gradient(25deg, #ea2d2d, burlywood);
-        border: none;
-        outline: none;
-        cursor: pointer;
-        box-shadow: 0 2px 2px rgba(0, 0, 0, 0.75);
-        color: $text;
-        font-size: 2em;
-        text-align: center;
-        font-weight: bolder;
-        &:hover {
-            background: #ff7300;
-        }
-        @include tablet {
-            width: 100px;
-            height: 100px;
-        }
-        @include phone {
-            width: 50px;
-            height: 50px;
-        }
-    }
-}
+  /*--------------break&session lengthbox grid template-----------*/
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  color: $text;
+  font-weight: bold;
+  place-items: center;
+  padding: 5px;
 
+  @include tablet {
+    margin: 35px;
+  }
 
-/*------------Main App ------------------------*/
-
-a {
-    text-decoration: none;
-    color: #ffeb3b;
+  #break-increment,
+  #break-decrement,
+  #session-increment,
+  /*-------------break & session btn increment decrement -----------*/
+  #session-decrement {
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(25deg, #ea2d2d, burlywood);
+    border: none;
+    outline: none;
     cursor: pointer;
-}
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.75);
+    color: $text;
+    font-size: 2em;
+    text-align: center;
+    font-weight: bolder;
 
-.pgt-control-btn {
-    display: flex;
-    justify-content: space-around;
+    /*----------btn increment decrement hover-------*/
+    &:hover {
+      background: #ff7300;
+    }
+    @include respond-to(375) {
+      width: 85px;
+      height: 85px;
+    }
+    @include respond-to(414) {
+      width: 65px;
+      height: 65px;
+    }
     @include tablet {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 100%;
-        justify-content: space-between;
+      width: 100px;
+      height: 100px;
     }
-    @include phone {
-        display: flex;
-        justify-content: space-around;
+  }
+
+  /*----------break and session length btn --------------*/
+  #break-length,
+  #session-length {
+    border-radius: 5px;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.75);
+    color: $text;
+    font-size: 20px;
+    padding: 5px;
+    font-variant: small-caps;
+    @include respond-to(375) {
+      font-size: 2.5em;
     }
+    @include respond-to(414) {
+      font-size: 2.5em;
+    }
+    @include tablet {
+      font-size: 3em;
+    }
+  }
+
+  /*----------------break and session label------------*/
+  #break-label,
+  #session-label {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
+    font-size: 15px;
+    color: $text;
+    font-variant: small-caps;
+    letter-spacing: 1px;
+
+    @include tablet {
+      background: rgb(43, 41, 49);
+      margin: 10px;
+      padding: 15px;
+      color: white;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
+    }
+  }
 }
-
-
-/*----------------------------Pgt-Timer---------------------------------*/
-
-.pgt-timer {
-    margin: 2px;
-    @include phone {
-        margin: 37px 26px;
-        border-radius: 64px 15px;
-        border: 5px solid burlywood;
-    }
-}
-
 
 /*----------------------------footer--------------------*/
-
-.pgt-footer {
-    position: absolute;
-    width: 100%;
-    bottom: 0;
-    .footer {
-        padding: 5px;
-    }
+.footer {
+  padding: 5px;
 }

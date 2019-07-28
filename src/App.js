@@ -157,9 +157,7 @@ class App extends Component {
           src="red-alert.mp3"
           ref={ref => (this.audio = ref)}
         ></audio>
-        <div className="pgt-footer">
-          <Footer />
-        </div>
+        <Footer />
       </div>
     );
   }

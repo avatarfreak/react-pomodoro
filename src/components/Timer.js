@@ -12,6 +12,7 @@ export class Timer extends Component {
       breakTime,
       sessionTime
     } = this.props;
+
     return (
       <div className="time-box">
         <div id="timer-label">
